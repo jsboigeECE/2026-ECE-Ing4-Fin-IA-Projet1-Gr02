@@ -7,8 +7,7 @@ Projet pédagogique d'exploration des approches d'intelligence artificielle symb
 ## 📅 Modalités du projet
 
 ### Échéances importantes
-- **07 janvier 2026** : Présentation des sujets proposés
-- **20 janvier** : Checkpoint intermédiaire
+- **20 janvier** :  Présentation des sujets proposés
 - **02 février** : Présentation finale et rendu
 
 ### Taille des groupes
