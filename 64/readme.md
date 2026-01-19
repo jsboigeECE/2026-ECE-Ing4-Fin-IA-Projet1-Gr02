@@ -27,7 +27,7 @@ Les robo-advisors doivent piloter plusieurs objectifs financiers en parallele (r
 
 ## Organisation du depot
 ```
-hcjr/
+64/
 ├── README.md
 ├── src/
 ├── notebooks/
