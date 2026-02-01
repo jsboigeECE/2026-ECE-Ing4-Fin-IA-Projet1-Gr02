@@ -1,3 +1,4 @@
 python-constraint
 pygame
 ortools
+z3-solver
