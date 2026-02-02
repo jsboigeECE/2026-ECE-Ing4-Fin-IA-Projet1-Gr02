@@ -26,11 +26,15 @@
 | **Gr02-Louis_Giraudeau_Gisclon-Sujet40/** | Arthur Louis, Manon Giraudeau, Noam Gisclon | MILP + CVaR Optimizer | **17.0** | Excellent |
 | **groupe-02-systeme-expert-medical/** | El Bakkali Badr, El Yousoufi Zakaria, Id El Ouali Kawthar | Système Expert Médical | **16.0** | Très Bien |
 | **groupe-JVX/** | Jean-François, Valentin, Xavier | Trading GA + WFA | **16.5** | Très Bien |
+| **groupe-11-resolution-demineur/** | Sébastien Fermigier, Brieuc Molko, Kimi Ho | Démineur CSP Solver | **15.5** | Bien |
+| **groupe-02-wordle-csp-solver/** | Équipe Wordle | Wordle CSP + LLM | **16.5** | Très Bien |
+| **groupe2-lamy-coloration-graphe/** | Robin Lamy | Coloration de graphe CSP | **15.0** | Bien |
+| **groupe-02-Farina_Lamonerie_calendrier-sportif/** | Léo Farina, Arthur Lamonerie | Calendrier sportif CP-SAT | **16.0** | Très Bien |
 | **BDT/** | Delplace Bousso TBO | - | **2.0** | Non rendu |
 | **hcjr/** | Jules, Hugo, Raphaël, Cian | - | **2.0** | Non rendu |
 | **knowledgeGraph/** | Groupe 2 (Sujet 46) | Knowledge Graph Risques | **5.0** | README seul |
 
-**Écart-type des notes (projets complets):** σ = 1.15
+**Écart-type des notes (projets complets):** σ = 0.98
 
 ---
 
@@ -389,6 +393,260 @@
 
 6. Comment auriez-vous géré l'extraction automatique des entités depuis des textes financiers ?
    > *Réponse attendue : Utilisation de NER (Named Entity Recognition) avec spaCy ou modèles fine-tunés sur le domaine financier (FinBERT), puis résolution d'entités pour lier les mentions aux nœuds du graphe.*
+
+---
+
+### 8. Projet groupe-11-resolution-demineur - Solveur CSP Démineur
+
+**Équipe:** Sébastien Fermigier, Brieuc Molko, Kimi Ho
+**Sujet:** Résolution automatique du puzzle Démineur par programmation par contraintes
+
+#### Évaluation
+
+| Critère | Note /20 | Commentaires |
+|---------|----------|--------------|
+| Fonctionnalité | 16 | Solveur CSP fonctionnel avec python-constraint |
+| Qualité du code | 15 | Code lisible, structure correcte |
+| Documentation | 15 | README avec références académiques et instructions |
+| Innovation | 15 | Application classique mais bien exécutée du CSP |
+| Interface | 15 | Interface graphique Tkinter pour visualisation |
+| Tests & Robustesse | 14 | Gestion des cas ambigus, pas de tests automatisés |
+
+**Note finale: 15.5/20**
+
+#### Points forts
+- Modélisation CSP correcte du problème (variable booléenne par case)
+- Références académiques pertinentes (Bayer & Snyder 2013)
+- Propagation de contraintes pour réduire l'espace de recherche
+- Interface graphique pour visualiser la résolution
+
+#### Points faibles
+- Documentation technique limitée sur l'implémentation
+- Pas de tests unitaires automatisés
+- Interface graphique basique
+
+#### Questions de Présentation
+
+**Niveau Facile:**
+1. Comment modélisez-vous le problème du Démineur comme un CSP ?
+   > *Réponse attendue : Chaque case inconnue est une variable booléenne (mine ou pas mine). Pour chaque case révélée avec un chiffre n, on ajoute une contrainte : la somme des variables des 8 cases voisines doit égaler n.*
+
+2. Qu'est-ce que la propagation de contraintes et pourquoi est-elle utile ici ?
+   > *Réponse attendue : La propagation réduit les domaines des variables en utilisant les contraintes. Par exemple, si une case affiche 0, toutes ses voisines sont forcément sans mine. Cela réduit drastiquement l'espace de recherche.*
+
+3. Pourquoi le Démineur est-il considéré comme NP-complet ?
+   > *Réponse attendue : Dans le cas général, déterminer si une configuration de Démineur a une solution unique nécessite d'explorer exponentiellement de possibilités. C'est équivalent à SAT dans certaines réductions.*
+
+**Niveau Intermédiaire:**
+4. Comment gérez-vous les situations ambiguës où plusieurs configurations sont possibles ?
+   > *Réponse attendue : Quand la propagation seule ne suffit pas, on doit faire du backtracking : essayer une hypothèse, propager, et revenir en arrière si contradiction. Dans certains cas, le joueur doit deviner.*
+
+5. Quelle est la différence entre arc-consistency et la résolution complète ?
+   > *Réponse attendue : L'arc-consistency garantit que chaque valeur du domaine d'une variable est compatible avec au moins une valeur de chaque variable liée. Cela ne garantit pas de solution, contrairement à une résolution complète par backtracking.*
+
+6. Comment optimiseriez-vous votre solveur pour des grilles très grandes ?
+   > *Réponse attendue : Utiliser CP-SAT d'OR-Tools au lieu de python-constraint, exploiter le parallélisme, ou décomposer le problème en sous-problèmes indépendants quand les zones sont disjointes.*
+
+**Niveau Difficile:**
+7. Démontrez que votre contrainte de somme sur le voisinage est correcte mathématiquement.
+   > *Réponse attendue : Si case[i,j] = n, alors Σ(mine[x,y] pour (x,y) ∈ voisins(i,j)) = n. C'est une contrainte de somme exacte sur des variables binaires.*
+
+8. Comment adapteriez-vous votre approche pour résoudre le Démineur en mode "probabiliste" ?
+   > *Réponse attendue : Calculer P(mine) pour chaque case en comptant les solutions où elle est mine / solutions totales. Cela permet de choisir la case la moins risquée quand on doit deviner.*
+
+9. Quels sont les cas pathologiques où votre solveur pourrait être lent ?
+   > *Réponse attendue : Grilles avec beaucoup de cases inconnues et peu de contraintes, configurations ambiguës nécessitant beaucoup de backtracking, ou grilles de très grande taille (100x100+).*
+
+---
+
+### 9. Projet groupe-02-wordle-csp-solver - Wordle CSP avec LLM
+
+**Équipe:** Projet ECE Paris - IA
+**Sujet:** Solveur intelligent de Wordle par CSP avec intégration LLM
+
+#### Évaluation
+
+| Critère | Note /20 | Commentaires |
+|---------|----------|--------------|
+| Fonctionnalité | 17 | Solveur CSP complet, multi-stratégies, tests inclus |
+| Qualité du code | 17 | Excellente modularité, typage, docstrings |
+| Documentation | 18 | README exceptionnel avec exemples, algorithmes, références |
+| Innovation | 17 | Intégration LLM avec function calling, théorie de l'information |
+| Interface | 16 | CLI colorée intuitive, multi-modes |
+| Tests & Robustesse | 15 | Tests unitaires présents, bonne couverture |
+
+**Note finale: 16.5/20**
+
+#### Points forts
+- Multiple stratégies d'optimisation (entropie, minimax, fréquence)
+- Intégration LLM avec OpenAI function calling
+- Support multi-langues (anglais, français)
+- Tests unitaires inclus
+- Documentation exceptionnelle avec analyse de complexité
+
+#### Points faibles
+- Dépendance API OpenAI (coût, disponibilité)
+- Performance sur grands dictionnaires à optimiser
+- Pas d'interface graphique web
+
+#### Questions de Présentation
+
+**Niveau Facile:**
+1. Comment représentez-vous les contraintes Wordle dans votre CSP ?
+   > *Réponse attendue : Trois types de contraintes : VERT = lettre fixée à cette position, JAUNE = lettre présente mais pas à cette position, GRIS = lettre absente du mot (sauf si déjà vue ailleurs).*
+
+2. Qu'est-ce que l'entropie et pourquoi l'utilisez-vous pour choisir le meilleur mot ?
+   > *Réponse attendue : L'entropie mesure l'incertitude. On choisit le mot qui maximise le gain d'information attendu, c'est-à-dire qui réduit le plus le nombre de candidats possibles en moyenne.*
+
+3. Expliquez la différence entre le mode assistant et le mode automatique.
+   > *Réponse attendue : En mode assistant, le solveur suggère des mots et l'utilisateur joue. En mode automatique, le solveur résout seul après qu'on lui donne le mot secret.*
+
+**Niveau Intermédiaire:**
+4. Comment fonctionne l'intégration LLM avec function calling ?
+   > *Réponse attendue : Le LLM peut appeler des fonctions exposées (apply_constraints, get_possible_words, suggest_best_guess). Il analyse la demande de l'utilisateur, appelle la fonction appropriée, et utilise le résultat pour répondre.*
+
+5. Expliquez la stratégie minimax et quand l'utiliser plutôt que l'entropie.
+   > *Réponse attendue : Minimax minimise le pire cas : on choisit le mot qui laisse le moins de candidats dans le scénario le plus défavorable. Utile quand on veut garantir une résolution en N coups maximum.*
+
+6. Comment gérez-vous les lettres répétées (ex: "LLAMA") ?
+   > *Réponse attendue : Si une lettre apparaît deux fois et le feedback diffère (un VERT, un GRIS), on sait qu'il y a exactement une occurrence. Il faut compter les occurrences et ajuster les contraintes en conséquence.*
+
+**Niveau Difficile:**
+7. Démontrez la formule de calcul d'entropie et comment vous l'appliquez.
+   > *Réponse attendue : H = -Σ p(i) log₂(p(i)) où p(i) est la probabilité du pattern i. Pour chaque mot candidat, on calcule les 3^5 patterns possibles et leur distribution sur les mots restants.*
+
+8. Quelle est la complexité temporelle de votre algorithme d'optimisation ?
+   > *Réponse attendue : O(n² × m) où n = taille dictionnaire, m = longueur mot. Pour chaque candidat (n), on calcule le pattern contre tous les autres (n), et comparer coûte O(m).*
+
+9. Comment améliorer les performances pour un dictionnaire de 100 000 mots ?
+   > *Réponse attendue : Échantillonnage aléatoire des candidats pour l'évaluation, pré-calcul des patterns, mise en cache, parallélisation, ou heuristiques pour élaguer l'espace de recherche.*
+
+---
+
+### 10. Projet groupe2-lamy-coloration-graphe - Coloration de Graphe CSP
+
+**Équipe:** Robin Lamy
+**Sujet:** Coloration de graphe et de carte comme CSP
+
+#### Évaluation
+
+| Critère | Note /20 | Commentaires |
+|---------|----------|--------------|
+| Fonctionnalité | 16 | K-coloration, minimisation, validation fonctionnelles |
+| Qualité du code | 15 | Structure modulaire, CLI complète |
+| Documentation | 15 | README avec instructions, datasets inclus |
+| Innovation | 14 | Application classique du CSP, bien exécutée |
+| Interface | 14 | Visualisation NetworkX/Matplotlib |
+| Tests & Robustesse | 15 | Tests pytest, validation des résultats |
+
+**Note finale: 15.0/20**
+
+#### Points forts
+- Implémentation correcte avec OR-Tools CP-SAT
+- Plusieurs générateurs d'instances (cycle, grille, Erdos-Rényi)
+- Datasets réels (états US, départements France)
+- Visualisation graphique des colorations
+- Tests unitaires avec pytest
+
+#### Points faibles
+- Projet individuel (moins de complexité attendue)
+- Pas d'interface web
+- Optimisations avancées non explorées
+
+#### Questions de Présentation
+
+**Niveau Facile:**
+1. Qu'est-ce que le problème de coloration de graphe ?
+   > *Réponse attendue : Attribuer une couleur à chaque nœud du graphe de sorte que deux nœuds adjacents (reliés par une arête) n'aient jamais la même couleur, en utilisant le minimum de couleurs.*
+
+2. Pourquoi 4 couleurs suffisent-elles pour colorier une carte ?
+   > *Réponse attendue : C'est le théorème des 4 couleurs : tout graphe planaire (représentable sans croisement d'arêtes) est 4-coloriable. Les cartes géographiques sont des graphes planaires.*
+
+3. Comment fonctionne votre algorithme de minimisation ?
+   > *Réponse attendue : On teste K=1, puis K=2, etc. jusqu'à trouver le premier K pour lequel une solution existe. C'est une recherche linéaire sur le nombre chromatique.*
+
+**Niveau Intermédiaire:**
+4. Expliquez comment vous modélisez le problème en CSP avec OR-Tools.
+   > *Réponse attendue : Variables = couleur de chaque nœud (domaine 0..K-1). Contraintes = pour chaque arête (u,v), couleur[u] ≠ couleur[v]. On demande au solveur de trouver une affectation satisfaisante.*
+
+5. Quelle est la différence entre CP-SAT et un solveur SAT classique pour ce problème ?
+   > *Réponse attendue : CP-SAT travaille directement avec des variables entières et des contraintes de haut niveau (≠, somme). Un solveur SAT nécessite d'encoder en clauses booléennes, ce qui est plus verbeux.*
+
+6. Comment vérifiez-vous qu'une coloration est valide ?
+   > *Réponse attendue : On parcourt toutes les arêtes du graphe et on vérifie que les deux extrémités ont des couleurs différentes. Complexité O(|E|).*
+
+**Niveau Difficile:**
+7. Pourquoi le problème de K-coloration est-il NP-complet pour K≥3 ?
+   > *Réponse attendue : On peut réduire 3-SAT à 3-coloration en temps polynomial. Le problème de décision "existe-t-il une 3-coloration ?" est donc au moins aussi dur que SAT.*
+
+8. Comment optimiseriez-vous pour des graphes de millions de nœuds ?
+   > *Réponse attendue : Heuristiques gloutonnes (Welsh-Powell), métaheuristiques (recuit simulé), décomposition du graphe, ou algorithmes approchés. CP-SAT exact devient trop lent.*
+
+9. Expliquez le lien entre coloration de graphe et allocation de registres en compilation.
+   > *Réponse attendue : Les variables du programme forment un graphe d'interférence (arête si deux variables sont vivantes simultanément). Colorier ce graphe = attribuer des registres. K = nombre de registres disponibles.*
+
+---
+
+### 11. Projet groupe-02-Farina_Lamonerie_calendrier-sportif - Calendrier Sportif CP-SAT
+
+**Équipe:** Léo Farina, Arthur Lamonerie
+**Sujet:** Génération de calendrier de championnat par programmation par contraintes
+
+#### Évaluation
+
+| Critère | Note /20 | Commentaires |
+|---------|----------|--------------|
+| Fonctionnalité | 17 | CP-SAT + MiniZinc fonctionnels, optimisation multi-critères |
+| Qualité du code | 16 | Bonne structure, séparation génération/affinement |
+| Documentation | 16 | README clair avec contraintes expliquées |
+| Innovation | 16 | Combinaison CP-SAT + MiniZinc originale |
+| Interface | 16 | Streamlit avec comparaison avant/après |
+| Tests & Robustesse | 15 | Validation des contraintes, métriques calculées |
+
+**Note finale: 16.0/20**
+
+#### Points forts
+- Double approche CP-SAT (génération) + MiniZinc (affinement)
+- Contraintes sportives réalistes (breaks, équité, distances)
+- Interface Streamlit avec comparaison visuelle
+- Optimisation multi-critères (breaks, distance totale)
+
+#### Points faibles
+- Dépendance MiniZinc externe à installer
+- Scalabilité non testée sur grands championnats
+- Pas de tests automatisés
+
+#### Questions de Présentation
+
+**Niveau Facile:**
+1. Qu'est-ce qu'un "break" dans un calendrier sportif et pourquoi le minimiser ?
+   > *Réponse attendue : Un break est deux matchs consécutifs à domicile ou à l'extérieur pour une équipe. Les breaks créent de l'inéquité et de la fatigue, il faut les minimiser.*
+
+2. Expliquez le format round-robin que vous implémentez.
+   > *Réponse attendue : Chaque équipe rencontre toutes les autres exactement une fois (aller simple) ou deux fois (aller-retour). On cherche à répartir équitablement les matchs sur les journées.*
+
+3. Pourquoi utiliser deux outils (CP-SAT et MiniZinc) ?
+   > *Réponse attendue : CP-SAT génère rapidement un calendrier de base satisfaisant les contraintes dures. MiniZinc affine ensuite pour optimiser les critères secondaires (breaks, distances).*
+
+**Niveau Intermédiaire:**
+4. Comment modélisez-vous les contraintes d'indisponibilité de stade ?
+   > *Réponse attendue : Variable booléenne match[équipe, journée, domicile]. Si le stade est indisponible journée J, on ajoute la contrainte match[équipe, J, domicile=True] = False.*
+
+5. Expliquez l'équilibre domicile/extérieur et comment vous le garantissez.
+   > *Réponse attendue : Chaque équipe doit avoir environ 50% de matchs à domicile. On compte les matchs domicile et on contraint ce compte à être dans [n/2 - 1, n/2 + 1].*
+
+6. Comment calculez-vous la distance totale parcourue par une équipe ?
+   > *Réponse attendue : On somme les distances entre lieux de matchs consécutifs. Si match J à Paris, match J+1 à Lyon, on ajoute distance(Paris, Lyon) au total.*
+
+**Niveau Difficile:**
+7. Montrez comment vous modélisez la contrainte "max N matchs consécutifs à l'extérieur".
+   > *Réponse attendue : Pour chaque fenêtre de N+1 journées consécutives, au moins un match doit être à domicile. Formellement : Σ(domicile[j] pour j ∈ [i, i+N]) ≥ 1 pour tout i.*
+
+8. Quelle est la complexité du problème de scheduling sportif ?
+   > *Réponse attendue : NP-difficile en général. Trouver un calendrier satisfaisant toutes les contraintes est équivalent à des problèmes d'ordonnancement sous contraintes multiples.*
+
+9. Comment adapteriez-vous votre modèle pour un championnat avec phases éliminatoires ?
+   > *Réponse attendue : Ajouter des contraintes de dépendance : le match M ne peut avoir lieu qu'après le match M' si M' détermine les participants de M. Modéliser les arbres de tournoi.*
 
 ---
 
