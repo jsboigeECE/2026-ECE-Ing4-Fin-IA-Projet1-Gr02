@@ -1,3 +1,30 @@
+# Robo-Advisor — Goal-based Portfolio Optimization (Prototype)
+
+Minimal prototype for a goal-based robo-advisor: data ingestion, Monte Carlo simulation,
+convex optimization for multi-objective allocation, business-rule CSPs and a Streamlit UI.
+
+Quick start
+
+1. Create a virtualenv and install requirements:
+
+```bash
+python -m venv .venv
+.venv\\Scripts\\activate
+pip install -r requirements.txt
+```
+
+2. Run the UI:
+
+```bash
+streamlit run ui/app.py
+```
+
+Files
+- `data/` — data loaders
+- `sim/` — Monte Carlo simulator
+- `opt/` — optimization and CSP rules
+- `ui/` — Streamlit prototype
+- `docs/` — modelling assumptions and experiments
 # 2026 - ECE - Ing4 - Fin - IA Exploratoire et Symbolique - Groupe 2
 
 Projet pédagogique d'exploration des approches d'intelligence artificielle symbolique et exploratoire pour les étudiants de l'ECE.
