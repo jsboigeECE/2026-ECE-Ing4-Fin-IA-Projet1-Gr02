@@ -33,6 +33,7 @@
 | **BDT/** | Delplace Bousso TBO | - | **2.0** | Non rendu |
 | **hcjr/** | Jules, Hugo, Raphaël, Cian | - | **2.0** | Non rendu |
 | **knowledgeGraph/** | Groupe 2 (Sujet 46) | Knowledge Graph Risques | **5.0** | README seul |
+| **PROJET 48/** | Léo Lans, Wandrille Esnault, Martin Jezequel | IA explicable investissement | **5.0** | README seul |
 
 **Écart-type des notes (projets complets):** σ = 0.98
 
@@ -650,6 +651,59 @@
 
 ---
 
+### 12. Projet PROJET 48/ - IA Explicable pour Investissement (README Seul)
+
+**Équipe:** Léo Lans, Wandrille Esnault, Martin Jezequel
+**Sujet:** IA explicable (XAI) pour justifier les décisions d'investissement
+
+#### Évaluation
+
+| Critère | Note /20 | Commentaires |
+|---------|----------|--------------|
+| Fonctionnalité | 0 | Aucun code implémenté |
+| Qualité du code | 0 | N/A |
+| Documentation | 15 | README avec description du problème et références |
+| Innovation | 8 | Concept XAI pertinent mais non implémenté |
+| Interface | 0 | N/A |
+| Tests & Robustesse | 0 | N/A |
+
+**Note finale: 5.0/20** (README seul, aucune implémentation)
+
+#### Points positifs du README
+- Références académiques récentes (CFA Institute 2025, BIS 2024)
+- Technologies identifiées (SHAP, LIME, Captum)
+- Problématique pertinente (exigences réglementaires)
+
+#### Points faibles
+- Aucun code fourni
+- README peu structuré (pas de sections claires)
+- Pas de slides ou présentation
+
+#### Questions de Présentation
+
+**Niveau Facile:**
+1. Qu'est-ce que l'IA explicable (XAI) et pourquoi est-elle importante en finance ?
+   > *Réponse attendue : XAI rend les décisions des modèles ML compréhensibles par les humains. En finance, elle est cruciale pour la conformité réglementaire (MiFID II, RGPD) et la confiance des clients.*
+
+2. Expliquez la différence entre SHAP et LIME.
+   > *Réponse attendue : SHAP (SHapley Additive exPlanations) utilise la théorie des jeux pour attribuer une contribution à chaque feature. LIME (Local Interpretable Model-agnostic Explanations) crée un modèle linéaire local autour d'une prédiction.*
+
+**Niveau Intermédiaire:**
+3. Comment SHAP calcule-t-il l'importance des features ?
+   > *Réponse attendue : SHAP utilise les valeurs de Shapley qui mesurent la contribution marginale moyenne de chaque feature sur toutes les coalitions possibles de features.*
+
+4. Qu'est-ce qu'une "counterfactual explanation" et donnez un exemple en finance ?
+   > *Réponse attendue : Une explication contrefactuelle indique le minimum de changements nécessaires pour obtenir une décision différente. Ex: "Votre crédit aurait été approuvé si votre revenu était 10% plus élevé."*
+
+**Niveau Difficile:**
+5. Pourquoi le projet n'a-t-il pas été implémenté ?
+   > *Réponse attendue : L'étudiant doit expliquer honnêtement les difficultés (temps, complexité technique, coordination d'équipe).*
+
+6. Comment intégreriez-vous l'argumentation computationnelle avec SHAP pour structurer les explications ?
+   > *Réponse attendue : Utiliser SHAP pour identifier les features importantes, puis construire des arguments formels (prémisses → conclusion) basés sur ces features. Ex: "Parce que volatilité > seuil ET momentum < 0, je recommande de vendre."*
+
+---
+
 ## Recommandations Générales
 
 ### Pour les projets excellents (Note >= 16)
@@ -685,9 +739,22 @@ Weights: {'AAPL': '25.01%', 'MSFT': '33.34%', 'GOOGL': '41.65%'}
 Monte Carlo - médiane: 2,598,437,351,702 (valeur aberrante!)
 Cause probable: erreur dans le calcul des multiplicateurs journaliers
 
-# Test 4: JVX GA - Non testé (backtrader non installé)
+# Test 4: JVX GA - OK (Python 3.13)
+backtrader et deap installés et fonctionnels
+
+# Test 5: Coloration Graphe - OK
+Instance: cycle | nodes=5 edges=5 | K=3 | Valid coloring
+
+# Test 6: Wordle CSP - OK
+Imports et solveur fonctionnels
+
+# Test 7: Calendrier Sportif - OK
+6 équipes, 5 journées, 16 breaks, validation OK
+
+# Test 8: Démineur CSP - OK
+python-constraint, pygame, ortools, z3-solver fonctionnels
 ```
 
 ---
 
-*Document généré automatiquement - À compléter avec observations lors des présentations*
+*Document généré automatiquement - Mis à jour le 3 février 2026*
